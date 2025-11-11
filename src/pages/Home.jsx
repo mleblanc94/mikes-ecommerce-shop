@@ -6,10 +6,13 @@ import './Home.css';
 
 const Home = () => {
 
+    // Set your states
     const [products, setProducts] = useState([]);
+    const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Pull the data from the API and set it in products state
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -27,22 +30,22 @@ const Home = () => {
         fetchData();
     }, []);
 
-    filterResults = () => {
-
-    }
-
+    // Filter Logic for user entering search
+    const filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(query.toLowerCase())
+    );
 
     return (
         <div className="main-body">
             <h1>Products</h1>
-            <input type="text" onChange={(e) => setProducts(e.target.value)} />
-            {products.map((product) => {
+            <input type="text" placeholder='Enter Product here' input={query} onChange={(e) => setQuery(e.target.value)} />
+            {filteredProducts.map((product) => {
                 return (
-                    <div key={product.key}>
+                    <div key={product.id}>
                     <img src={product.images[0]} alt={product.title} width={200}></img>
                     <div>{product.title}</div>
                     <div>{product.price}</div>
-                    <button>Add to cart</button>
+                    <button onClick={() => console.log(product.title)}>Add to cart</button>
                     </div> 
                 )
             })}
