@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import './Home.css';
 
-
+const STORAGE_KEY = 'cart_v1';
 
 const Home = () => {
 
@@ -25,6 +25,8 @@ const Home = () => {
                 console.log(result);
             } catch (error) {
                 setError(error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchData();
@@ -35,10 +37,13 @@ const Home = () => {
         product.title.toLowerCase().includes(query.toLowerCase())
     );
 
+    if (loading) return <div className='main-body'>Loading...</div>
+    if (error)
+
     return (
         <div className="main-body">
             <h1>Products</h1>
-            <input type="text" placeholder='Enter Product here' input={query} onChange={(e) => setQuery(e.target.value)} />
+            <input type="text" placeholder='Enter Product here' value={query} onChange={(e) => setQuery(e.target.value)} />
             {filteredProducts.map((product) => {
                 return (
                     <div key={product.id}>
