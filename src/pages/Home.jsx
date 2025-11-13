@@ -38,7 +38,7 @@ const Home = () => {
     );
 
     if (loading) return <div className='main-body'>Loading...</div>
-    if (error)
+    if (error) return <div className="main-body">Error: {error}</div>
 
     return (
         <div className="main-body">
