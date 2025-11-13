@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import './Home.css';
+import { useCart } from '../context/CartContext';
 
 const STORAGE_KEY = 'cart_v1';
 
@@ -43,14 +44,16 @@ const Home = () => {
     return (
         <div className="main-body">
             <h1>Products</h1>
+
             <input type="text" placeholder='Enter Product here' value={query} onChange={(e) => setQuery(e.target.value)} />
+
             {filteredProducts.map((product) => {
                 return (
                     <div key={product.id}>
                     <img src={product.images[0]} alt={product.title} width={200}></img>
                     <div>{product.title}</div>
                     <div>{product.price}</div>
-                    <button onClick={() => console.log(product.title)}>Add to cart</button>
+                    <button onClick={() => addToCart(product)}>Add to cart</button>
                     </div> 
                 )
             })}
