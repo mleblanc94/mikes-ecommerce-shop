@@ -55,7 +55,8 @@ const Home = () => {
                     <img src={product.images[0]} alt={product.title} width={200}></img>
                     <div>{product.title}</div>
                     <div>{product.price}</div>
-                    <button onClick={() => addToCart(product)}>Add to cart</button>
+                    <button onClick={() => {
+                        addToCart(product); alert(`${product.title} added to cart!`);}}>Add to cart</button>
                     </div> 
                 )
             })}
