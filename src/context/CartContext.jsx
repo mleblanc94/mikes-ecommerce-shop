@@ -37,8 +37,23 @@ export const CartProvider = ({ children }) => {
         });
     }
 
+    const removeFromCart = (id) => {
+        setItems((prevItems) => {
+        // If it exists, subtract 1 from items quantity
+        const updated = prevItems.map((item) => {
+            if (item.id === id) {
+                return { ...item, qty: item.qty - 1}
+            }
+            return item;
+        });
+
+        // Then remove any items that have a quantity <= 0
+        return updated.filter((item) => item.qty > 0);
+        })
+    }
+
     // The shared data/function we expose to the whole app
-    const value = { items, addToCart };
+    const value = { items, addToCart, removeFromCart };
 
     // Wrap the entire app with the provider so all components get access
     return (

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import './Home.css';
 import { useCart } from '../context/CartContext';
 
-const STORAGE_KEY = 'cart_v1';
 
 const Home = () => {
 
@@ -12,6 +11,9 @@ const Home = () => {
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Get addToCart from the shared cart context
+    const { addToCart } = useCart();
 
     // Pull the data from the API and set it in products state
     useEffect(() => {
